@@ -11,10 +11,17 @@ router.post('/new', async function(req, res, next) {
     let personVerification = await fetch('http://ec2-3-13-79-51.us-east-2.compute.amazonaws.com:8081/assistant/rut?rut='+req.body.id_maker, options);
     
     if(personVerification.status == 200){
- 
-        const create = {method: 'POST', headers: {Accept: 'application/json'}, body: req.body};
-        let projectCreation = await fetch('https://api-gestion-production-fob3.up.railway.app/proyectos/', create);
- 
+        let json = Object.assign({},req.body)
+        json.id_maker = parseInt(json.id_maker) 
+        console.log(json);
+        const create = {
+            method: 'POST',
+            headers: {Accept: 'application/json', 'Content-Type': 'application/json'},
+            body: JSON.stringify(json)
+          };
+
+        let projectCreation = await fetch('https://api-gestion-production-fob3.up.railway.app/proyectos', create);
+        
         if(projectCreation.status==200){
             res.json(projectCreation)
         }else{
