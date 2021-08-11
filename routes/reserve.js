@@ -24,7 +24,7 @@ router.post('/new', async function(req, res, next) {
             res.json(reserveCreation)
         }else{
             console.log(reserveCreation)
-            res.status(404).send({failed: "Error creando proyecto"})
+            res.status(404).send({failed: "Error creando reserva"})
         }
     }
     else{
